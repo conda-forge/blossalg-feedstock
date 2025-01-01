@@ -6,11 +6,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 65c2dd9b084659a20f338552eeea7dc0226a58b6bfc4e5a3e91475d6ad7ec77d
 
 build:
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install . -vv"
   noarch: python
   entry_points:
@@ -18,10 +18,10 @@ build:
 
 requirements:
   host:
-    - python >=2.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=2.7
+    - python >={{ python_min }}
     - future
 
 test:
@@ -29,6 +29,7 @@ test:
     - blossom
   requires:
     - pytest
+    - python {{ python_min }}
   source_files:
     - tests/conftest.py
     - tests/test_blossom.py
